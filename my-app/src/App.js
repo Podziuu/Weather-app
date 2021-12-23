@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
 
+import {api_key} from './config'
+
 function App() {
   const [weatherData, setWeatherData] = useState();
   const inputRef = useRef();
-  const API_KEY = "5526440f87f0eae7d6b98fd71afce7cf";
-  const coldImage = "bg-[url('../assets/blue_mountains.jpg')]"
-  const warmImage = "bg-[url('../assets/warmImage.jpg')]"
+  const API_KEY = api_key;
+  const coldImage = "bg-[url('../assets/blue_mountains.jpg')]";
+  const warmImage = "bg-[url('../assets/warmImage.jpg')]";
 
   const submitHandler = async (e) => {
     if (e.key === "Enter") {
@@ -63,7 +65,13 @@ function App() {
 
   return (
     <div
-      className={`${weatherData ? (weatherData.temperature > 15 ? warmImage : coldImage) : coldImage} bg-cover bg-center h-screen w-screen transition-all duration-500`}
+      className={`${
+        weatherData
+          ? weatherData.temperature > 15
+            ? warmImage
+            : coldImage
+          : coldImage
+      } bg-cover bg-center h-screen w-screen transition-all duration-500`}
     >
       <main
         style={{
@@ -105,6 +113,14 @@ function App() {
               {weatherData.description}
             </div>
           </div>
+        )}
+        {!weatherData && (
+          <h1
+            style={{ textShadow: "1,5px 1.5px #000000" }}
+            className="text-3xl text-white text-center mt-36"
+          >
+            Please search your city above!
+          </h1>
         )}
       </main>
     </div>
